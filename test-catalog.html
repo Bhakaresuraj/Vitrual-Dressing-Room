@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Catalog Functionality</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .status-box {
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+        .image-container {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        .image-container img {
+            max-width: 100%;
+            max-height: 300px;
+        }
+        .loading {
+            text-align: center;
+            font-style: italic;
+            color: #777;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4F46E5;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Catalog Test</h1>
+        
+        <div class="status-box" id="url-params">
+            URL Parameters: Checking...
+        </div>
+        
+        <div class="status-box" id="localStorage-status">
+            localStorage: Checking...
+        </div>
+        
+        <div class="status-box" id="cookie-status">
+            Cookies: Checking...
+        </div>
+        
+        <h2>Uploaded Image</h2>
+        <div class="loading" id="loading">
+            Checking for uploaded image...
+        </div>
+        
+        <div class="image-container" id="image-container" style="display: none;">
+            <img id="user-image" src="" alt="Your uploaded photo">
+            <div id="image-info">Loading image info...</div>
+            <button id="try-on-btn">Simulate Try-On</button>
+        </div>
+        
+        <div class="error" id="error-box" style="display: none;">
+            No image found. Please upload a photo first.
+            <button id="go-upload">Go to Upload Page</button>
+        </div>
+        
+        <div class="try-on-container" id="try-on-container" style="display: none;">
+            <h2>Virtual Try-On Simulation</h2>
+            <div class="image-container">
+                <img id="try-on-image" src="" alt="Virtual try-on">
+                <div>Trying on: Classic Black Suit</div>
+            </div>
+            <button id="close-try-on">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // Elements
+        const urlParamsDiv = document.getElementById('url-params');
+        const localStorageStatusDiv = document.getElementById('localStorage-status');
+        const cookieStatusDiv = document.getElementById('cookie-status');
+        const loadingDiv = document.getElementById('loading');
+        const imageContainer = document.getElementById('image-container');
+        const errorBox = document.getElementById('error-box');
+        const userImage = document.getElementById('user-image');
+        const imageInfo = document.getElementById('image-info');
+        const tryOnBtn = document.getElementById('try-on-btn');
+        const goUploadBtn = document.getElementById('go-upload');
+        const tryOnContainer = document.getElementById('try-on-container');
+        const tryOnImage = document.getElementById('try-on-image');
+        const closeTryOnBtn = document.getElementById('close-try-on');
+        
+        // Check URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const fromUpload = urlParams.get('from') === 'upload';
+        const isTest = urlParams.get('test') === 'true';
+        urlParamsDiv.textContent = `URL Parameters: from=${fromUpload}, test=${isTest}`;
+        
+        // Test localStorage
+        let localStorageAvailable = false;
+        try {
+            localStorage.setItem('test', 'test');
+            localStorage.removeItem('test');
+            localStorageAvailable = true;
+            localStorageStatusDiv.textContent = 'localStorage: Available';
+            localStorageStatusDiv.style.backgroundColor = '#d4edda';
+        } catch (e) {
+            localStorageStatusDiv.textContent = 'localStorage: NOT available';
+            localStorageStatusDiv.style.backgroundColor = '#f8d7da';
+        }
+        
+        // Check cookies
+        const getCookie = (name) => {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+            return null;
+        };
+        
+        const cookieUpload = getCookie('fromUpload');
+        cookieStatusDiv.textContent = `Cookies: fromUpload=${cookieUpload || 'not set'}`;
+        
+        // Check for uploaded image
+        if (localStorageAvailable) {
+            const uploadedImage = localStorage.getItem('uploadedImage');
+            
+            if (uploadedImage && uploadedImage.startsWith('data:image')) {
+                // Show the image
+                loadingDiv.style.display = 'none';
+                imageContainer.style.display = 'block';
+                userImage.src = uploadedImage;
+                
+                // Show image info (first 50 chars of data URL)
+                const shortURL = uploadedImage.substring(0, 50) + '...';
+                imageInfo.textContent = `Image found with data URL: ${shortURL}`;
+            } else {
+                // No image found
+                loadingDiv.style.display = 'none';
+                errorBox.style.display = 'block';
+                
+                if (uploadedImage) {
+                    const errorMsg = document.createElement('div');
+                    errorMsg.textContent = `Found invalid data: ${uploadedImage ? 'Not an image URL' : 'Empty value'}`;
+                    errorBox.appendChild(errorMsg);
+                }
+            }
+        } else {
+            // localStorage not available
+            loadingDiv.style.display = 'none';
+            errorBox.style.display = 'block';
+            const errorMsg = document.createElement('div');
+            errorMsg.textContent = 'Cannot retrieve image because localStorage is not available';
+            errorBox.appendChild(errorMsg);
+        }
+        
+        // Try-on button
+        tryOnBtn.addEventListener('click', function() {
+            tryOnContainer.style.display = 'block';
+            tryOnImage.src = userImage.src; // In a real app, would apply clothing
+        });
+        
+        // Close try-on
+        closeTryOnBtn.addEventListener('click', function() {
+            tryOnContainer.style.display = 'none';
+        });
+        
+        // Go to upload page
+        goUploadBtn.addEventListener('click', function() {
+            window.location.href = 'test-upload.html';
+        });
+    </script>
+</body>
+</html> 

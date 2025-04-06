@@ -1,34 +1,9 @@
 // Wait for DOM to fully load
 document.addEventListener('DOMContentLoaded', () => {
-    // Test if localStorage is available and working
-    const isLocalStorageAvailable = () => {
-        const test = 'test';
-        try {
-            localStorage.setItem(test, test);
-            localStorage.removeItem(test);
-            return true;
-        } catch(e) {
-            console.error("localStorage is not available:", e);
-            return false;
-        }
-    };
-    
-    const localStorageAvailable = isLocalStorageAvailable();
-    console.log("localStorage available:", localStorageAvailable);
-    
-    // Debug localStorage for image
-    console.log("Page loaded, checking localStorage for uploaded image...");
-    const hasUploadedImage = localStorageAvailable ? localStorage.getItem('uploadedImage') : null;
-    console.log("Has uploaded image:", hasUploadedImage ? "Yes (length: " + hasUploadedImage.length + ")" : "No");
-    
-    // Check URL parameters for coming from upload
-    const urlParams = new URLSearchParams(window.location.search);
-    const fromUpload = urlParams.get('from') === 'upload';
-    console.log("URL parameter 'from=upload':", fromUpload);
-    
-    // Check localStorage flag
-    const fromUploadFlag = localStorageAvailable ? localStorage.getItem('fromUpload') === 'true' : false;
-    console.log("localStorage flag 'fromUpload':", fromUploadFlag);
+    // Debug localStorage
+    console.log("Page loaded, checking localStorage...");
+    const hasUploadedImage = localStorage.getItem('uploadedImage');
+    console.log("Has uploaded image:", hasUploadedImage ? "Yes" : "No");
     
     // Elements
     const categoryBtns = document.querySelectorAll('.filter-btn');
@@ -46,12 +21,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Check if user came from upload flow
     const checkIfFromUpload = () => {
+        const searchParams = new URLSearchParams(window.location.search);
+        const fromUpload = searchParams.get('from') === 'upload';
+        const fromUploadFlag = localStorage.getItem('fromUpload') === 'true';
+        
+        console.log("From upload URL param:", fromUpload);
+        console.log("From upload localStorage flag:", fromUploadFlag);
+        
         // Check either indicator
         if (fromUpload || fromUploadFlag) {
             console.log("User came from upload flow, showing welcome message");
             
             // Clear the flag
-            if (fromUploadFlag && localStorageAvailable) {
+            if (fromUploadFlag) {
                 localStorage.removeItem('fromUpload');
             }
             
@@ -191,9 +173,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.try-on-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             try {
+                console.log("Try on button clicked, checking for uploaded image...");
                 const uploadedImage = localStorage.getItem('uploadedImage');
                 
-                if (uploadedImage) {
+                if (uploadedImage && uploadedImage.startsWith('data:image')) {
+                    console.log("Valid image found in localStorage");
                     // Get item details
                     const item = btn.closest('.clothing-item');
                     const itemName = item.querySelector('h3').textContent;
@@ -201,13 +185,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Create a modal to show the virtual try-on
                     showTryOnModal(uploadedImage, itemName);
                 } else {
-                    if (confirm('You need to upload your photo first. Go to upload page?')) {
-                        window.location.href = 'upload.html';
-                    }
+                    console.log("No valid image found:", uploadedImage ? "Invalid format" : "No image");
+                    alert('Please upload your photo first on the home page.');
+                    // Redirect to home page after a short delay
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1500);
                 }
             } catch (error) {
                 console.error("Error in try-on process:", error);
-                alert("There was an error. Please try again.");
+                alert("There was an error processing your request. Please try again.");
             }
         });
     });
@@ -223,25 +210,29 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             if (selectedItems.length === 0) {
                 alert('Please select at least one item to try on.');
-                return;
-            }
-            
-            const uploadedImage = localStorage.getItem('uploadedImage');
-            
-            if (uploadedImage) {
-                // Get names of selected items
-                const itemNames = selectedItems.map(item => item.name);
-                
-                // Create a modal to show the virtual try-on with multiple items
-                showTryOnModal(uploadedImage, itemNames.join(', '));
             } else {
-                if (confirm('You need to upload your photo first. Go to upload page?')) {
-                    window.location.href = 'upload.html';
+                console.log("Try on selected button clicked, checking for uploaded image...");
+                const uploadedImage = localStorage.getItem('uploadedImage');
+                
+                if (uploadedImage && uploadedImage.startsWith('data:image')) {
+                    console.log("Valid image found in localStorage");
+                    // Get names of selected items
+                    const itemNames = selectedItems.map(item => item.name);
+                    
+                    // Create a modal to show the virtual try-on with multiple items
+                    showTryOnModal(uploadedImage, itemNames.join(', '));
+                } else {
+                    console.log("No valid image found:", uploadedImage ? "Invalid format" : "No image");
+                    alert('Please upload your photo first on the home page.');
+                    // Redirect to home page after a short delay
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1500);
                 }
             }
         } catch (error) {
             console.error("Error in try-on selection process:", error);
-            alert("There was an error. Please try again.");
+            alert("There was an error processing your request. Please try again.");
         }
     });
 
@@ -312,6 +303,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to show try-on modal
     function showTryOnModal(userImage, itemText) {
         try {
+            console.log("Creating try-on modal for:", itemText);
+            
             // Create modal elements
             const tryOnModal = document.createElement('div');
             tryOnModal.className = 'try-on-modal';
@@ -324,7 +317,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                     <div class="try-on-body">
                         <div class="try-on-image-container">
-                            <img src="${userImage}" alt="You wearing ${itemText}" class="try-on-image" onerror="this.src='virtual_dressing.jpeg';">
+                            <img src="${userImage}" alt="You wearing ${itemText}" class="try-on-image" onerror="this.src='virtual_dressing.jpeg'; console.error('Error loading user image, fallback to default');">
                             <div class="try-on-overlay">Trying on: ${itemText}</div>
                         </div>
                         <div class="try-on-info">
@@ -341,6 +334,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Add to body
             document.body.appendChild(tryOnModal);
+            console.log("Modal added to document");
             
             // Prevent body scrolling
             document.body.style.overflow = 'hidden';
@@ -352,6 +346,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const closeTryOnModal = () => {
                 document.body.removeChild(tryOnModal);
                 document.body.style.overflow = '';
+                console.log("Modal closed");
             };
             
             closeBtn.addEventListener('click', closeTryOnModal);
@@ -363,9 +358,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     closeTryOnModal();
                 }
             });
+            
+            console.log("Try-on modal displayed successfully");
         } catch (error) {
             console.error("Error displaying try-on modal:", error);
-            alert("There was an error. Please try again.");
+            alert("There was an error displaying the virtual try-on. Please try again.");
         }
     }
 }); 

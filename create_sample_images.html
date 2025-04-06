@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Sample Images</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .sample-image {
+            width: 300px;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            position: relative;
+        }
+        .sample-image::after {
+            content: "Right-click and Save Image";
+            position: absolute;
+            bottom: 10px;
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        .instructions {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sample Clothing Images</h1>
+    
+    <div class="instructions">
+        <p>To use these sample images for your catalog:</p>
+        <ol>
+            <li>Right-click on each image and select "Save image as..."</li>
+            <li>Save the image to your "images" folder with the corresponding filename</li>
+            <li>Repeat for all images</li>
+        </ol>
+    </div>
+    
+    <h2>Clothing Items</h2>
+    <div class="image-container">
+        <div class="sample-image" style="background-color: #111111;">
+            Black Suit<br>Save as: black-suit.jpg
+        </div>
+        
+        <div class="sample-image" style="background-color: #3b5998;">
+            Blue Jeans<br>Save as: blue-jeans.jpg
+        </div>
+        
+        <div class="sample-image" style="background-color: #e62b1e;">
+            Red Dress<br>Save as: red-dress.jpg
+        </div>
+        
+        <div class="sample-image" style="background-color: #28a745;">
+            Green Shirt<br>Save as: green-shirt.jpg
+        </div>
+        
+        <div class="sample-image" style="background-color: #f8f9fa; color: #333;">
+            White Shirt<br>Save as: white-shirt.jpg
+        </div>
+        
+        <div class="sample-image" style="background-color: #007bff;">
+            Blue Blazer<br>Save as: blue-blazer.jpg
+        </div>
+    </div>
+    
+    <h2>Additional Images</h2>
+    <div class="image-container">
+        <div class="sample-image" style="background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);">
+            Hero Image<br>Save as: hero-image.jpg
+        </div>
+        
+        <div class="sample-image" style="background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);">
+            Demo Animation<br>Save as: demo-animation.gif
+        </div>
+    </div>
+</body>
+</html> 

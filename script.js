@@ -1,5 +1,21 @@
 // Wait for DOM to fully load
 document.addEventListener('DOMContentLoaded', () => {
+    // Test if localStorage is available and working
+    const isLocalStorageAvailable = () => {
+        const test = 'test';
+        try {
+            localStorage.setItem(test, test);
+            localStorage.removeItem(test);
+            return true;
+        } catch(e) {
+            console.error("localStorage is not available:", e);
+            return false;
+        }
+    };
+    
+    const localStorageAvailable = isLocalStorageAvailable();
+    console.log("localStorage available:", localStorageAvailable);
+
     // Add smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
@@ -159,8 +175,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Continue button functionality
     continueBtn.addEventListener('click', () => {
-        alert('This would proceed to the next step where you can adjust the photo and then see virtual try-on results.');
-        closeModal();
+        try {
+            // Get the image data
+            const imageData = previewImage.src;
+            
+            if (localStorageAvailable) {
+                // Save uploaded image to localStorage
+                console.log("Saving image to localStorage...");
+                localStorage.setItem('uploadedImage', imageData);
+                
+                // Create a flag to indicate we're coming from upload flow
+                localStorage.setItem('fromUpload', 'true');
+                console.log("Image saved successfully");
+            } else {
+                // Fallback: Use a session cookie instead
+                console.log("Using cookie fallback for upload indication");
+                document.cookie = "fromUpload=true; path=/";
+                // Note: We can't store the full image in a cookie due to size limitations
+                // So we'll just indicate that the upload happened
+            }
+            
+            // Redirect to catalog page with a parameter to indicate coming from upload
+            console.log("Redirecting to catalog...");
+            window.location.href = 'catalog.html?from=upload';
+        } catch (error) {
+            console.error("Error during the upload process:", error);
+            alert("There was an error processing your image. Please try again.");
+        }
     });
 
     // Add a simple loading animation when the page loads

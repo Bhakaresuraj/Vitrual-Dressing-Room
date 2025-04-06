@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Virtual Try-On | Try Clothes with AI</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="index-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -23,12 +23,14 @@
             <h1>Try Clothes Online with AI</h1>
             <h2>No Guesswork, Just Perfect Fit!</h2>
             <div class="cta-buttons">
-                <a href="#" class="cta-button primary" id="upload-photo-btn">Upload Your Photo</a>
+                <a href="upload.html" class="cta-button primary" id="upload-photo-btn">Upload Your Photo</a>
                 <a href="catalog.html" class="cta-button secondary" id="browse-catalog-btn">Browse Catalog</a>
             </div>
         </div>
         <div class="hero-image">
-            <img src="https://placehold.co/400x500/e2e8f0/1e293b?text=Virtual+Try-On" alt="Virtual Try-On Preview">
+            <div class="placeholder-image" style=" height: 584px; width: 1075px; border-radius: 1rem; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
+                <img src="virimg.avif" alt="Virtual Try-On Preview">
+            </div>
         </div>
     </header>
 
@@ -57,7 +59,9 @@
         <h2>How It Works</h2>
         <div class="demo-container">
             <div class="demo-gif">
-                <img src="https://placehold.co/800x450/e2e8f0/1e293b?text=Demo+Animation" alt="Demo of virtual try-on process">
+                <div class="placeholder-image" style="background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%); height: 450px; width: 800px; border-radius: 1rem; display: flex; align-items: center; justify-content: center; color: #333; font-weight: bold;">
+                    <span>Demo Animation</span>
+                </div>
             </div>
             <div class="demo-steps">
                 <div class="step">
@@ -231,7 +235,9 @@
                 <div class="catalog-items">
                     <div class="clothing-item" data-category="formal" data-size="m" data-color="black" data-style="classic">
                         <div class="item-image">
-                            <img src="shirt.png" alt="Black Suit">
+                            <div class="placeholder-image" style="background-color: #111111;">
+                                <span>Black Suit</span>
+                            </div>
                             <div class="item-hover">
                                 <button class="try-on-btn">Try On</button>
                                 <button class="add-to-selection-btn">Add to Selection</button>
@@ -254,7 +260,9 @@
                     
                     <div class="clothing-item" data-category="casual" data-size="l" data-color="blue" data-style="modern">
                         <div class="item-image">
-                            <img src="https://placehold.co/300x400/e2e8f0/1e293b?text=Blue+Jeans" alt="Blue Jeans">
+                            <div class="placeholder-image" style="background-color: #3b5998;">
+                                <span>Blue Jeans</span>
+                            </div>
                             <div class="item-hover">
                                 <button class="try-on-btn">Try On</button>
                                 <button class="add-to-selection-btn">Add to Selection</button>
@@ -277,7 +285,9 @@
                     
                     <div class="clothing-item" data-category="ethnic" data-size="m" data-color="red" data-style="vintage">
                         <div class="item-image">
-                            <img src="https://placehold.co/300x400/e2e8f0/1e293b?text=Red+Dress" alt="Red Dress">
+                            <div class="placeholder-image" style="background-color: #e62b1e;">
+                                <span>Red Dress</span>
+                            </div>
                             <div class="item-hover">
                                 <button class="try-on-btn">Try On</button>
                                 <button class="add-to-selection-btn">Add to Selection</button>
@@ -300,7 +310,9 @@
                     
                     <div class="clothing-item" data-category="sports" data-size="s" data-color="green" data-style="modern">
                         <div class="item-image">
-                            <img src="https://placehold.co/300x400/e2e8f0/1e293b?text=Sports+Wear" alt="Sports Wear">
+                            <div class="placeholder-image" style="background-color: #28a745;">
+                                <span>Green Shirt</span>
+                            </div>
                             <div class="item-hover">
                                 <button class="try-on-btn">Try On</button>
                                 <button class="add-to-selection-btn">Add to Selection</button>
@@ -323,7 +335,9 @@
                     
                     <div class="clothing-item" data-category="casual" data-size="m" data-color="white" data-style="minimalist">
                         <div class="item-image">
-                            <img src="https://placehold.co/300x400/e2e8f0/1e293b?text=White+Shirt" alt="White Shirt">
+                            <div class="placeholder-image" style="background-color: #f8f9fa; color: #333;">
+                                <span>White Shirt</span>
+                            </div>
                             <div class="item-hover">
                                 <button class="try-on-btn">Try On</button>
                                 <button class="add-to-selection-btn">Add to Selection</button>
@@ -346,7 +360,9 @@
                     
                     <div class="clothing-item" data-category="formal" data-size="l" data-color="blue" data-style="classic">
                         <div class="item-image">
-                            <img src="https://placehold.co/300x400/e2e8f0/1e293b?text=Blue+Blazer" alt="Blue Blazer">
+                            <div class="placeholder-image" style="background-color: #007bff;">
+                                <span>Blue Blazer</span>
+                            </div>
                             <div class="item-hover">
                                 <button class="try-on-btn">Try On</button>
                                 <button class="add-to-selection-btn">Add to Selection</button>

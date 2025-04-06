@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Upload Functionality</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .upload-area {
+            border: 2px dashed #ccc;
+            padding: 20px;
+            text-align: center;
+        }
+        .preview-container {
+            display: none;
+            margin-top: 20px;
+        }
+        .preview-container img {
+            max-width: 100%;
+            max-height: 300px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4F46E5;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:disabled {
+            background-color: #ccc;
+        }
+        #status {
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Upload Test</h1>
+        
+        <div id="status">Status: Ready</div>
+        
+        <div class="upload-area">
+            <p>Upload your photo:</p>
+            <input type="file" id="file-input" accept=".jpg, .jpeg, .png">
+        </div>
+        
+        <div class="preview-container" id="preview-container">
+            <img id="preview-image" src="" alt="Preview">
+        </div>
+        
+        <button id="continue-btn" disabled>Continue to Catalog</button>
+    </div>
+
+    <script>
+        // Elements
+        const fileInput = document.getElementById('file-input');
+        const previewContainer = document.getElementById('preview-container');
+        const previewImage = document.getElementById('preview-image');
+        const continueBtn = document.getElementById('continue-btn');
+        const statusDiv = document.getElementById('status');
+        
+        // Test localStorage
+        try {
+            localStorage.setItem('test', 'test');
+            localStorage.removeItem('test');
+            statusDiv.textContent = 'Status: localStorage is working';
+        } catch (e) {
+            statusDiv.textContent = 'Status: localStorage is NOT working';
+            statusDiv.style.backgroundColor = '#ffcccc';
+        }
+        
+        // Handle file selection
+        fileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                // Show preview
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImage.src = e.target.result;
+                    previewContainer.style.display = 'block';
+                    continueBtn.disabled = false;
+                    statusDiv.textContent = 'Status: Image loaded successfully';
+                    statusDiv.style.backgroundColor = '#d4edda';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // Continue button 
+        continueBtn.addEventListener('click', function() {
+            try {
+                // Get the image data
+                const imageData = previewImage.src;
+                statusDiv.textContent = 'Status: Saving to localStorage...';
+                
+                // Save to localStorage
+                localStorage.setItem('uploadedImage', imageData);
+                localStorage.setItem('fromUpload', 'true');
+                
+                statusDiv.textContent = 'Status: Image saved, redirecting...';
+                
+                // Redirect after a short delay to see the status
+                setTimeout(() => {
+                    window.location.href = 'catalog.html?from=upload&test=true';
+                }, 1000);
+            } catch (error) {
+                statusDiv.textContent = 'Status: ERROR - ' + error.message;
+                statusDiv.style.backgroundColor = '#f8d7da';
+            }
+        });
+    </script>
+</body>
+</html> 
