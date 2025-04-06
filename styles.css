@@ -957,4 +957,127 @@ footer {
     .selection-panel {
         padding: 1rem;
     }
+}
+
+/* Catalog Page Styles */
+.catalog-header {
+    background: linear-gradient(135deg, #f7fafc 0%, #ebf4ff 100%);
+    padding: 3rem 5%;
+    text-align: center;
+}
+
+.catalog-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+.catalog-header p {
+    font-size: 1.1rem;
+    color: var(--dark-gray);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.catalog-page {
+    padding: 2rem 5%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.catalog-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background-color: white;
+    border-radius: 1rem;
+    box-shadow: var(--shadow);
+    align-items: flex-end;
+}
+
+.catalog-container {
+    background-color: white;
+    border-radius: 1rem;
+    box-shadow: var(--shadow);
+    padding: 1.5rem;
+}
+
+.selection-panel {
+    background-color: white;
+    border-radius: 1rem;
+    box-shadow: var(--shadow);
+    padding: 1.5rem;
+}
+
+/* Add active class for nav links */
+.nav-links a.active {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* Mobile responsiveness for catalog page */
+@media (max-width: 768px) {
+    .catalog-header h1 {
+        font-size: 2rem;
+    }
+    
+    .catalog-page {
+        padding: 1.5rem 3%;
+    }
+    
+    .catalog-filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .filter-group {
+        width: 100%;
+    }
+}
+
+/* Existing Responsive Design section */
+@media (max-width: 1024px) {
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        gap: 3rem;
+    }
+    
+    .hero-content {
+        max-width: 100%;
+    }
+    
+    .cta-buttons {
+        justify-content: center;
+    }
+    
+    .feature-cards {
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+    
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .demo-steps {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        gap: 2rem;
+    }
+    
+    .footer-links {
+        gap: 2rem;
+    }
 } 

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse Catalog | Virtual Try-On</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav>
+        <div class="logo">VirtualFit</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="#">How It Works</a>
+            <a href="catalog.html" class="active">Catalog</a>
+            <a href="#">About</a>
+        </div>
+    </nav>
+
+    <header class="catalog-header">
+        <h1>Browse Our Clothing Collection</h1>
+        <p>Find the perfect outfit and try it on virtually</p>
+    </header>
+
+    <section class="catalog-page">
+        <div class="catalog-filters">
+            <div class="filter-group">
+                <label>Categories</label>
+                <div class="filter-options">
+                    <button class="filter-btn active" data-category="all">All</button>
+                    <button class="filter-btn" data-category="formal">Formal Wear</button>
+                    <button class="filter-btn" data-category="casual">Casual Outfits</button>
+                    <button class="filter-btn" data-category="ethnic">Ethnic Wear</button>
+                    <button class="filter-btn" data-category="sports">Sportswear</button>
+                </div>
+            </div>
+            
+            <div class="filter-group">
+                <label>Size</label>
+                <select class="filter-select" id="size-filter">
+                    <option value="all">All Sizes</option>
+                    <option value="s">Small (S)</option>
+                    <option value="m">Medium (M)</option>
+                    <option value="l">Large (L)</option>
+                    <option value="xl">Extra Large (XL)</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label>Color</label>
+                <select class="filter-select" id="color-filter">
+                    <option value="all">All Colors</option>
+                    <option value="black">Black</option>
+                    <option value="white">White</option>
+                    <option value="blue">Blue</option>
+                    <option value="red">Red</option>
+                    <option value="green">Green</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label>Style</label>
+                <select class="filter-select" id="style-filter">
+                    <option value="all">All Styles</option>
+                    <option value="classic">Classic</option>
+                    <option value="modern">Modern</option>
+                    <option value="vintage">Vintage</option>
+                    <option value="minimalist">Minimalist</option>
+                </select>
+            </div>
+            
+            <button class="filter-reset-btn">
+                <i class="fas fa-redo-alt"></i> Reset Filters
+            </button>
+        </div>
+        
+        <div class="catalog-container">
+            <div class="catalog-items">
+                <div class="clothing-item" data-category="formal" data-size="m" data-color="black" data-style="classic">
+                    <div class="item-image">
+                        <img src="https://placehold.co/300x400/e2e8f0/1e293b?text=Black+Suit" alt="Black Suit">
+                        <div class="item-hover">
+                            <button class="try-on-btn">Try On</button>
+                            <button class="add-to-selection-btn">Add to Selection</button>
+                        </div>
+                    </div>
+                    <div class="item-details">
+                        <h3>Classic Black Suit</h3>
+                        <p class="item-category">Formal Wear</p>
+                        <div class="item-variants">
+                            <span class="variant-label">Size:</span>
+                            <div class="variant-options">
+                                <span>S</span>
+                                <span class="active">M</span>
+                                <span>L</span>
+                                <span>XL</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="clothing-item" data-category="casual" data-size="l" data-color="blue" data-style="modern">
+                    <div class="item-image">
+                        <img src="https://placehold.co/300x400/e2e8f0/1e293b?text=Blue+Jeans" alt="Blue Jeans">
+                        <div class="item-hover">
+                            <button class="try-on-btn">Try On</button>
+                            <button class="add-to-selection-btn">Add to Selection</button>
+                        </div>
+                    </div>
+                    <div class="item-details">
+                        <h3>Modern Blue Jeans</h3>
+                        <p class="item-category">Casual Outfits</p>
+                        <div class="item-variants">
+                            <span class="variant-label">Size:</span>
+                            <div class="variant-options">
+                                <span>S</span>
+                                <span>M</span>
+                                <span class="active">L</span>
+                                <span>XL</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="clothing-item" data-category="ethnic" data-size="m" data-color="red" data-style="vintage">
+                    <div class="item-image">
+                        <img src="https://placehold.co/300x400/e2e8f0/1e293b?text=Red+Dress" alt="Red Dress">
+                        <div class="item-hover">
+                            <button class="try-on-btn">Try On</button>
+                            <button class="add-to-selection-btn">Add to Selection</button>
+                        </div>
+                    </div>
+                    <div class="item-details">
+                        <h3>Vintage Red Dress</h3>
+                        <p class="item-category">Ethnic Wear</p>
+                        <div class="item-variants">
+                            <span class="variant-label">Size:</span>
+                            <div class="variant-options">
+                                <span>S</span>
+                                <span class="active">M</span>
+                                <span>L</span>
+                                <span>XL</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="clothing-item" data-category="sports" data-size="s" data-color="green" data-style="modern">
+                    <div class="item-image">
+                        <img src="https://placehold.co/300x400/e2e8f0/1e293b?text=Sports+Wear" alt="Sports Wear">
+                        <div class="item-hover">
+                            <button class="try-on-btn">Try On</button>
+                            <button class="add-to-selection-btn">Add to Selection</button>
+                        </div>
+                    </div>
+                    <div class="item-details">
+                        <h3>Green Athletic Shirt</h3>
+                        <p class="item-category">Sportswear</p>
+                        <div class="item-variants">
+                            <span class="variant-label">Size:</span>
+                            <div class="variant-options">
+                                <span class="active">S</span>
+                                <span>M</span>
+                                <span>L</span>
+                                <span>XL</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="clothing-item" data-category="casual" data-size="m" data-color="white" data-style="minimalist">
+                    <div class="item-image">
+                        <img src="https://placehold.co/300x400/e2e8f0/1e293b?text=White+Shirt" alt="White Shirt">
+                        <div class="item-hover">
+                            <button class="try-on-btn">Try On</button>
+                            <button class="add-to-selection-btn">Add to Selection</button>
+                        </div>
+                    </div>
+                    <div class="item-details">
+                        <h3>Minimalist White Shirt</h3>
+                        <p class="item-category">Casual Outfits</p>
+                        <div class="item-variants">
+                            <span class="variant-label">Size:</span>
+                            <div class="variant-options">
+                                <span>S</span>
+                                <span class="active">M</span>
+                                <span>L</span>
+                                <span>XL</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="clothing-item" data-category="formal" data-size="l" data-color="blue" data-style="classic">
+                    <div class="item-image">
+                        <img src="https://placehold.co/300x400/e2e8f0/1e293b?text=Blue+Blazer" alt="Blue Blazer">
+                        <div class="item-hover">
+                            <button class="try-on-btn">Try On</button>
+                            <button class="add-to-selection-btn">Add to Selection</button>
+                        </div>
+                    </div>
+                    <div class="item-details">
+                        <h3>Classic Blue Blazer</h3>
+                        <p class="item-category">Formal Wear</p>
+                        <div class="item-variants">
+                            <span class="variant-label">Size:</span>
+                            <div class="variant-options">
+                                <span>S</span>
+                                <span>M</span>
+                                <span class="active">L</span>
+                                <span>XL</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="selection-panel">
+            <div class="selection-header">
+                <h3>Selected Items</h3>
+                <button class="clear-selection-btn"><i class="fas fa-trash"></i> Clear All</button>
+            </div>
+            <div class="selected-items" id="selected-items">
+                <p class="no-items-message">No items selected yet.</p>
+            </div>
+            <div class="selection-actions">
+                <button class="modal-btn primary" id="try-selection" disabled>Try On Selected</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">VirtualFit</div>
+            <div class="footer-links">
+                <div class="link-group">
+                    <h3>Company</h3>
+                    <a href="#">About Us</a>
+                    <a href="#">Careers</a>
+                    <a href="#">Contact</a>
+                </div>
+                <div class="link-group">
+                    <h3>Legal</h3>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Privacy Policy</a>
+                </div>
+                <div class="link-group">
+                    <h3>Resources</h3>
+                    <a href="#">Help Center</a>
+                    <a href="#">Blog</a>
+                    <a href="#">GitHub</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 VirtualFit. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="catalog.js"></script>
+</body>
+</html> 
